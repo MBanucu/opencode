@@ -136,7 +136,7 @@ export async function POST(input: APIEvent) {
       const couponID = await (async () => {
         if (!promoCode) return
         const coupon = await Billing.stripe().promotionCodes.retrieve(promoCode)
-        const couponID = (coupon as any).coupon as string
+        const couponID = coupon.promotion.coupon as string
         if (!couponID) throw new Error("Coupon not found for promotion code")
         return couponID
       })()
